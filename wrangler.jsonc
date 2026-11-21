@@ -3,6 +3,7 @@
   "name": "amin-anonymous-bot",
   "main": "src/index.js",
   "compatibility_date": "2026-11-01",
-  // Create a Workers KV namespace and add a binding named CONVERSATIONS in the Cloudflare dashboard.
+  "keep_vars": true,
+  "kv_namespaces": [{ "binding": "CONVERSATIONS", "id": "462a7c7744d94679a17869ad3be38e39" }],
   "observability": { "enabled": true }
 }

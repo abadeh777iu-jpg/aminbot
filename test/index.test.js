@@ -23,10 +23,10 @@ test('rejects unauthorized webhook requests', async () => {
   assert.equal((await send({}, 'wrong')).status, 401);
   assert.equal(calls.length, 0);
 });
-test('welcome explains what Amin sees', async () => {
+test('welcome uses the requested text', async () => {
   const { send, calls } = setup();
   await send({ from: { id: 1 }, chat: { type: 'private' }, text: '/start' });
-  assert.match(calls[0].body.text, /شناسه عددی/);
+  assert.equal(calls[0].body.text, 'سلام من ربات ناشناس امین هستم و به صورت ناشناس پیامتون رو به امین میرسونم 🖤🥃');
 });
 test('routes messages and replies to the correct user', async () => {
   const { send, calls, store } = setup();
@@ -34,9 +34,11 @@ test('routes messages and replies to the correct user', async () => {
   assert.match(calls[0].body.text, /@ali/);
   assert.equal(store.get('admin:101'), '42');
   assert.equal(store.get('admin:102'), '42');
-  await send({ message_id: 8, from: { id: 99 }, chat: { type: 'private' }, reply_to_message: { message_id: 102 }, text: 'hi' });
-  assert.equal(calls[2].method, 'copyMessage');
   assert.equal(calls[2].body.chat_id, '42');
+  assert.match(calls[2].body.text, /دریافت شد و برای امین ارسال شد/);
+  await send({ message_id: 8, from: { id: 99 }, chat: { type: 'private' }, reply_to_message: { message_id: 102 }, text: 'hi' });
+  assert.equal(calls[3].method, 'copyMessage');
+  assert.equal(calls[3].body.chat_id, '42');
 });
 test('admin replies without a mapped message are not sent to a user', async () => {
   const { send, calls } = setup();

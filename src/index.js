@@ -1,5 +1,5 @@
 const API = 'https://api.telegram.org/bot';
-const WELCOME = 'سلام من ربات ناشناس امین هستم و به صورت ناشناس پیامتون رو به امین میرسونم 🖤🥃\n\nامین نام، نام کاربری و شناسه عددی شما را می‌بیند. پیام خود را بفرستید.';
+const WELCOME = 'سلام من ربات ناشناس امین هستم و به صورت ناشناس پیامتون رو به امین میرسونم 🖤🥃';
 
 async function telegram(env, method, body) {
   const response = await fetch(`${API}${env.BOT_TOKEN}/${method}`, {
@@ -51,7 +51,9 @@ async function handleMessage(message, env) {
   } catch (error) {
     console.error('Could not copy user message:', error.message);
     await telegram(env, 'sendMessage', { chat_id: senderId, text: 'متأسفانه ارسال این نوع پیام ممکن نبود. لطفاً متن یا رسانه دیگری بفرستید.' });
+    return;
   }
+  await telegram(env, 'sendMessage', { chat_id: senderId, text: 'پیامتون دریافت شد و برای امین ارسال شد 🖤🥃' });
 }
 
 export default {
