@@ -1,0 +1,6 @@
+{
+  "name": "amin-anonymous-bot",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test" }
+}

@@ -1,0 +1,8 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "amin-anonymous-bot",
+  "main": "src/index.js",
+  "compatibility_date": "2026-11-01",
+  // Create a Workers KV namespace and add a binding named CONVERSATIONS in the Cloudflare dashboard.
+  "observability": { "enabled": true }
+}
